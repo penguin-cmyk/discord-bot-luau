@@ -1,3 +1,6 @@
+-- for information on specific stuff visit the info folder
+
+local bot = loadstring(game:HttpGet("https://raw.githubusercontent.com/penguin-cmyk/discord-bot-luau/refs/heads/main/discordbot/init.lua"))()
 -- Updating text and adding new embeds
 bot.new_command({
     Name = "!test",
