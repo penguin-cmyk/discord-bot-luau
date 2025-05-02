@@ -1,7 +1,7 @@
 # discord-bot-luau
 A discord bot purely written in luau. This is ment to be used with executors and does not run natively on luau
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------
 # How to set it up
 ```luau
 local bot = loadstring(game:HttpGet("https://raw.githubusercontent.com/penguin-cmyk/discord-bot-luau/refs/heads/main/discordbot/init.lua"))()
@@ -17,5 +17,9 @@ bot.new_command({
 
 bot.login("token")
 ```
-
 ### Example can found in the examples folder
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+What is planned?
+- Functions like reply, delete message, get reactions, add reaction
+- A proper documentation. (The current documentation is just looking at the source or the example)
