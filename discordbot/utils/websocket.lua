@@ -85,9 +85,9 @@ websocket_modules.start_connection = function()
                 
                 if data_payload.data.components  then 
                     for _, component in data_payload.data.components do 
-                        local fuck_you_discord_for_making_everything_so_shit = component.components
-                        for i = 1, #fuck_you_discord_for_making_everything_so_shit do 
-                            local comppp = fuck_you_discord_for_making_everything_so_shit[i]
+                        local comp = component.components
+                        for i = 1, #comp do 
+                            local comppp = comp[i]
                             modal_data[comppp.custom_id] = comppp.value
                         end 
                     end 
