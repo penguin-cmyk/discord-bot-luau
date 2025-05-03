@@ -21,7 +21,7 @@ bot.login("token")
 
 # Lune
 ```luau
-local bot = require("discordbot/init.lua")
+local bot = require("./discordbot/init.lua") -- it is NEEDED for the folder to be called discordbot else you would need to change the src up a bit (just the init file and that's all)
 
 bot.new_command({
     Name = ".test",
