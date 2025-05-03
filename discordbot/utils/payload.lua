@@ -1,10 +1,12 @@
 local payload = {}
-local http_service = game:GetService("HttpService")
-
 local op_codes = include("info/opcodes")
 
-payload.JsonEncode = function(table) return http_service:JSONEncode(table) end 
-payload.JsonDecode = function(table) return http_service:JSONDecode(table) end 
+payload.JsonEncode = function(table)
+    return is_lune and JsonEncode(table) or game:GetService("HttpService"):JSONEncode(table) 
+end 
+payload.JsonDecode = function(table) 
+    return is_lune and JsonDecode(table) or game:GetService("HttpService"):JSONEncode(table) 
+end 
 
 payload.identify_paylod = function(token_input)
     local data = {
@@ -32,5 +34,11 @@ end
 payload.get_headers = function(token)
     return { ["Content-Type"] = "application/json", ["Authorization"] = "Bot "..token }
 end 
+
+payload.url_encode = function(str)
+	return str:gsub("[^%w%-._~]", function(char)
+		return string.format("%%%02X", string.byte(char))
+	end)
+end
 
 return payload
