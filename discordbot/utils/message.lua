@@ -116,4 +116,49 @@ message.send_modal = function(interaction_id, interaction_token, datax, handler)
     })
 end 
 
+message.delete = function(channel_id, message_id)
+    local url = "https://discord.com/api/v10"..endpoints.CHANNEL_MESSAGE:format(channel_id, message_id)
+
+    return request({
+        Url = url,
+        Method = "DELETE",
+        Headers = payload.get_headers(token)
+    })
+end 
+
+message.add_reaction = function(channel_id, message_id, emoji)
+    local emoji = payload.url_encode(emoji)
+    local url = "https://discord.com/api/v10"..endpoints.CHANNEL_MESSAGE_REACTION_ME:format(channel_id, message_id, emoji)
+
+    return request({
+        Url = url, 
+        Method = "PUT",
+        Headers = payload.get_headers(token)
+    })
+end 
+
+message.get_reactions = function(channel_id, message_id, emoji)
+    local emoji = payload.url_encode(emoji)
+    local url = "https://discord.com/api/v10"..endpoints.CHANNEL_MESSAGE_REACTION:format(channel_id, message_id, emoji)
+
+    local body = payload.JsonDecode(request({
+        Url = url, 
+        Method = "GET",
+        Headers = payload.get_headers(token)
+    }).Body)
+
+    return body
+end 
+
+message.delete_reactions = function(channel_id, message_id, emoji)
+    local emoji = payload.url_encode(emoji)
+    local url = "https://discord.com/api/v10"..endpoints.CHANNEL_MESSAGE_REACTION:format(channel_id, message_id, emoji)
+
+    return request({
+        Url = url, 
+        Method = "DELETE",
+        Headers = payload.get_headers(token)
+    })
+end 
+
 return message, components
