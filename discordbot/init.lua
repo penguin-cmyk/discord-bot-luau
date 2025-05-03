@@ -12,10 +12,10 @@ check("discordbot/utils")
 check("discordbot/info")
 
 local info_files = { "components.lua",
-                     "reply_types.lua"
+                     "reply_types.lua",
                      "endpoints.lua",
                      "opcodes.lua",
-                     "events.lua",
+                     "events.lua"
                    }
 
 local utils_file = { "message.lua",
