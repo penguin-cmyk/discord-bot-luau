@@ -150,4 +150,13 @@ end
 
 websocket_modules.WebSocket = websocket
 
+setmetatable(websocket_modules, {
+    __newindex = function(self, key, value)
+        if key == "Config" then 
+            setglobal("bot_config", value)
+        end 
+    end,
+})
+
+
 return websocket_modules
