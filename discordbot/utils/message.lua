@@ -23,7 +23,6 @@ message.insert_handles = function(components, handlers)
     end 
 end 
 
-
 message.send = function(body, channel_id)
     return request({
         Url = "https://discord.com/api/v10"..endpoints.CHANNEL_MESSAGES:format(channel_id),
@@ -32,6 +31,28 @@ message.send = function(body, channel_id)
         Body = body
     })
 end 
+
+message.send_raw = function(channel_id, data) 
+    local message = payload.JsonEncode(data)
+    local result = message.send(message, channel_id)
+
+    return result
+end 
+
+message.reply = function(channel_id, message_id, content)
+    local body = payload.JsonEncode({
+        content = content.Content,
+        embeds = content.Embeds,
+        components = content.Components,
+        message_reference = {
+            message_id = message_id,
+            channel_id = channel_id
+        }
+    })
+
+    return message.send(body, channel_id)
+end 
+
 
 message.send_message = function(channel_id, message) 
     local message = payload.JsonEncode({ content = message })
@@ -44,7 +65,8 @@ message.send_embed = function(channel_id, embed)
     assert(embed.Embed ~= nil, "Expected 'Embed' to be in the embed table")
     local data = {
         content = embed.Content,
-        embeds = { embed.Embed } 
+        embeds = embed.Embed,
+        
     }
     local body = payload.JsonEncode(data)
     local result = message.send(body, channel_id)

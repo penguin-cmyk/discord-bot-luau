@@ -1,7 +1,6 @@
--- for information on specific stuff visit the info folder
-
-local bot = loadstring(game:HttpGet("https://raw.githubusercontent.com/penguin-cmyk/discord-bot-luau/refs/heads/main/discordbot/init.lua"))()
 -- Updating text and adding new embeds
+
+-- bot.new_command is only ment to be used for single line commands
 bot.new_command({
     Name = "!test",
     Callback = function(content, channeld_id, data_payload)
@@ -62,8 +61,6 @@ bot.new_command({
             }}
         }}
 
-        -- Handler: 
-        -- [custom_id] = callback
         local example_handler = {
             ["test_id"] = function(info) -- 
                 local interaction_token = info.interaction_token

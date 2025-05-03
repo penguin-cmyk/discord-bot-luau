@@ -16,26 +16,58 @@ local message = include("utils/message")
 
 local Commands = {}
 local Events   = {}
+
+local function getcallback(options) return options.Func or options.callback or options.Callback end 
+
 local websocket_modules = {
     new_command = function(options)
         local name = options.Name or options.name 
-        local callback = options.Func or options.callback or options.Callback 
+        local callback = getcallback(options)
+
+        assert(callback ~= nil, "Callback expected got nil")
+        assert(typeof(callback) == "function", "Function expected as callback got "..typeof(callback))
+        
+        assert(name ~= nil, "name expected got nil")
+        assert(typeof(name) == "string", "String expected for the name got "..typeof(name))
 
         Commands[name] = callback
     end,
     new_eventlistener = function(options)
         local event = options.Event or options.event 
-        local callback = options.Func or options.callback or options.Callback 
+        local callback = getcallback(options) 
+
+
+        assert(callback ~= nil, "Callback expected got nil")
+        assert(typeof(callback) == "function", "Function expected as callback got "..typeof(callback))
+        
+        assert(event ~= nil, "event expected got nil")
+        assert(typeof(event) == "string", "String expected for the event got "..typeof(event))
+        
+
         if not table.find(events, event) then 
             return warn(`Event with name {event} was not found. Look into the /info/events.lua file to get all discord events`)
         end 
         Events[event] = callback
+    end,
+    new_componenthandler = function(options)
+        local custom_id = options.id or options.Id or options.custom_id or options.Custom_id
+        local callback = getcallback(options)
+
+        assert(callback ~= nil, "Callback expected got nil")
+        assert(typeof(callback) == "function", "Function expected as callback got "..typeof(callback))
+        
+        assert(custom_id ~= nil, "custom_id expected got nil")
+        assert(typeof(custom_id) == "string", "String expected for the custom_id got "..typeof(custom_id))
+
+        ComponentHandlers[custom_id] = callback
     end 
 }
 
 for name, func in message do 
     setglobal(name, func)
 end 
+
+setglobal("payload", payload)
 
 websocket_modules.login = function(tok)
     setglobal("token", tok)
