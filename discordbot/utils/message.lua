@@ -1,5 +1,6 @@
 local slash_builder = include("utils/builders/slash_command")
 local component_builder = include("utils/builders/component")
+local embed_builder = include("utils/builders/embed")
 
 local payload = include("utils/payload")
 
@@ -16,6 +17,8 @@ setglobal("reply_types", reply_types)
 setglobal("slash_types", slash_types)
 setglobal("component_builder", component_builder)
 setglobal("slash_builder", slash_builder)
+setglobal("embed_builder", embed_builder)
+
 message.insert_handles = function(components, handlers)
     for _, component in components do 
         local components_ = component.components
