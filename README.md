@@ -23,6 +23,7 @@ bot.login("token")
 ```
 
  > Lune env  (clone the repository first and cd into it):
+ > Version  v0.9.2 or higher
 ```lua
 --[[
 	It is needed for the folder to be called "discordbot".
