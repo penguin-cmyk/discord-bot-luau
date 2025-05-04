@@ -78,7 +78,6 @@ websocket_modules.start_connection = function()
     -- Websocket related
     local websocket = WebSocket.connect(endpoints.GATEWAY_URL)
 
-
     -- Heartbeat information
     local heartbeat_interval = 0
     local last_sequence = nil 
@@ -92,7 +91,6 @@ websocket_modules.start_connection = function()
         if sequence_number then 
             last_sequence = sequence_number 
         end 
-
         if opcode == opcodes.HELLO then 
             heartbeat_interval = data_payload.heartbeat_interval
             websocket:Send(payload.identify_paylod(token))

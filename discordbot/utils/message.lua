@@ -1,15 +1,21 @@
+local slash_builder = include("utils/builders/slash_command")
+local component_builder = include("utils/builders/component")
+
 local payload = include("utils/payload")
+
 local endpoints = include("info/endpoints")
 local components = include("info/components")
 local reply_types = include("info/reply_types")
-
+local slash_types = include("info/slash_types")
 local message = {}
+
 setglobal("styles", components.ButtonStyles)
 setglobal("modal_types", components.ModalTypes)
-
 setglobal("components", components)
 setglobal("reply_types", reply_types)
-
+setglobal("slash_types", slash_types)
+setglobal("component_builder", component_builder)
+setglobal("slash_builder", slash_builder)
 message.insert_handles = function(components, handlers)
     for _, component in components do 
         local components_ = component.components
@@ -32,6 +38,30 @@ message.send = function(body, channel_id)
     })
 end 
 
+message.register_global_slash = function(application_id, command)
+    local url = `https://discord.com/api/v10/applications/{application_id}/commands`
+    local body = payload.JsonEncode(command)
+
+    return request({
+        Url = url,
+        Method = "PUT",
+        Headers = payload.get_headers(token),
+        Body = body
+    })
+end 
+
+message.register_guild_slash = function(application_id, guild_id, command)
+    local url = `https://discord.com/api/v10/applications/{application_id}/guilds/{guild_id}/commands`
+    local body = payload.JsonEncode(command)
+
+    return request({
+        Url = url,
+        Method = "PUT",
+        Headers = payload.get_headers(token),
+        Body = body
+    })
+end 
+
 message.send_raw = function(channel_id, data) 
     local message = payload.JsonEncode(data)
     local result = send(message, channel_id)
@@ -41,9 +71,9 @@ end
 
 message.reply = function(channel_id, message_id, content)
     local body = payload.JsonEncode({
-        content = content.Content,
-        embeds = content.Embeds,
-        components = content.Components,
+        content = content.Content or content.content,
+        embeds = content.Embeds or content.embeds,
+        components = content.Components or content.components,
         message_reference = {
             message_id = message_id,
             channel_id = channel_id
