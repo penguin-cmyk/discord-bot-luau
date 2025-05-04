@@ -32,7 +32,7 @@ payload.heartbeat_paylod = function(sequence_number)
 end 
 
 payload.get_headers = function(token)
-    local config = bot_config.self_bot and token or ("Bot "..token)
+    local config = bot_config and bot_config.self_bot and token or ("Bot "..token)
     return { ["Content-Type"] = "application/json", ["Authorization"] = config }
 end 
 
