@@ -8,15 +8,15 @@ d	Data payload (actual message info, etc)
 
 -- Inclusions
 local endpoints = include("info/endpoints")
-local opcodes = include("info/opcodes")
-local events  = include("info/events")
+local opcodes   = include("info/opcodes")
+local events    = include("info/events")
 
 local payload = include("utils/payload")
 local message = include("utils/message")
 
 local Commands = {}
 local Events   = {}
-
+local Slash    = {}
 local function getcallback(options) return options.Func or options.callback or options.Callback end 
 
 local websocket_modules = {
@@ -60,6 +60,18 @@ local websocket_modules = {
         assert(typeof(custom_id) == "string", "String expected for the custom_id got "..typeof(custom_id))
 
         ComponentHandlers[custom_id] = callback
+    end,
+    new_slashhandler = function(options)
+        local command = options.Command or options.command
+        local callback = getcallback(options)
+
+        assert(callback ~= nil, "Callback expected got nil")
+        assert(typeof(callback) == "function", "Function expected as callback got "..typeof(callback))
+        
+        assert(command ~= nil, "custom_id expected got nil")
+        assert(typeof(command) == "string", "String expected for the command got "..typeof(command))
+
+        Slash[command] = callback
     end 
 }
 
@@ -109,9 +121,10 @@ websocket_modules.start_connection = function()
             end 
         elseif event_type == "INTERACTION_CREATE" then 
             local author = data_payload.member and data_payload.member.user
-            local handler = ComponentHandlers[data_payload.data.custom_id]
+            local handler = ComponentHandlers[data_payload.data.custom_id] or Slash[data_payload.data.name]
             if handler then 
                 local modal_data = {};
+                local options_data = {}
                 
                 if data_payload.data.components  then 
                     for _, component in data_payload.data.components do 
@@ -120,6 +133,13 @@ websocket_modules.start_connection = function()
                             local comppp = comp[i]
                             modal_data[comppp.custom_id] = comppp.value
                         end 
+                    end 
+                end 
+
+                if data_payload.data.options  then 
+                    for _, component in data_payload.data.options do 
+                        local comp = component
+                        options_data[comp.name] = comp.value 
                     end 
                 end 
 
@@ -134,7 +154,8 @@ websocket_modules.start_connection = function()
                     message_id = data_payload.message and data_payload.message.id,
                     interaction_token = data_payload.token,
                     interaction_id = data_payload.id,
-                    modal_data = modal_data
+                    modal_data = modal_data,
+                    options = options_data
                 })
             end 
         end 
