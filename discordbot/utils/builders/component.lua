@@ -48,6 +48,11 @@ function component_builder:Style(value)
     return self 
 end 
 
+function component_builder:Url(value)
+    self.data.url = value 
+    return self
+end
+
 function component_builder:MinValue(value)
     self.data.min_values = value
     return self
