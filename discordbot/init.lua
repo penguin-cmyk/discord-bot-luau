@@ -27,7 +27,8 @@ if is_lune then
     local task  = libs.task
     local luau  = libs.luau 
 
-
+    local json = require("json/json")
+    
     -- Heartbeat information
     local heartbeat_interval = 0
     local last_sequence = nil 
@@ -80,8 +81,8 @@ if is_lune then
         })
     end)
 
-    setglobal("JsonEncode", net.jsonEncode)
-    setglobal("JsonDecode", net.jsonDecode)
+    setglobal("JsonEncode", json.encode)
+    setglobal("JsonDecode", json.decode)
 
     setglobal("task", task)
     setglobal("WebSocket", WebSocket)
