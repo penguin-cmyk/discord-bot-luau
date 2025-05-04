@@ -22,7 +22,7 @@ bot.new_command({
 bot.login("token")
 ```
 
- > Lune env:
+ > Lune env  (clone the repository first and cd into it):
 ```lua
 --[[
 	It is needed for the folder to be called "discordbot".
