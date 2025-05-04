@@ -5,7 +5,7 @@ payload.JsonEncode = function(table)
     return is_lune and JsonEncode(table) or game:GetService("HttpService"):JSONEncode(table) 
 end 
 payload.JsonDecode = function(table) 
-    return is_lune and JsonDecode(table) or game:GetService("HttpService"):JSONEncode(table) 
+    return is_lune and JsonDecode(table) or game:GetService("HttpService"):JSONDecode(table) 
 end 
 
 payload.identify_paylod = function(token_input)
