@@ -68,7 +68,7 @@ local websocket_modules = {
         assert(callback ~= nil, "Callback expected got nil")
         assert(typeof(callback) == "function", "Function expected as callback got "..typeof(callback))
         
-        assert(command ~= nil, "custom_id expected got nil")
+        assert(command ~= nil, "command expected got nil")
         assert(typeof(command) == "string", "String expected for the command got "..typeof(command))
 
         Slash[command] = callback
