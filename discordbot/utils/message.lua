@@ -34,7 +34,7 @@ end
 
 message.send_raw = function(channel_id, data) 
     local message = payload.JsonEncode(data)
-    local result = message.send(message, channel_id)
+    local result = send(message, channel_id)
 
     return result
 end 
