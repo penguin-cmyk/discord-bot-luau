@@ -1,11 +1,11 @@
 ### What is Pengubot?
-PenguBot is a simple discord bot framework that I've been working on for fun since I was bored. It's a cool side project and is not meant to be a really "serious" discord bot framework but I has similar features to one.
+PenguBot is a simple discord bot framework that I've been working on for fun since I was bored. 
+It's a cool side project and is not meant to be a really "serious" discord bot framework but I has similar features to one.
 
 ### What does it support?
-PenguBot can be run in either a roblox executor env. which supports wss Websockets.
-Another method is to run it using [Lune](https://github.com/lune-org/lune). 
-
-The file will automatically detect when you're using lune or a executor env. 
+- PenguBot can be run in either a roblox executor env. which supports wss Websockets.
+- Another method is to run it using [Lune](https://github.com/lune-org/lune). 
+- The file will automatically detect when you're using lune or a executor env. 
 
 ### How to set it up?
 > Executor env: 
