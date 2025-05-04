@@ -1,12 +1,15 @@
-# discord-bot-luau
-## A discord bot purely written in luau. This is ment to be used with executors or lune!
+### What is Pengubot?
+PenguBot is a simple discord bot framework that I've been working on for fun since I was bored. It's a cool side project and is not meant to be a really "serious" discord bot framework but I has similar features to one.
 
+### What does it support?
+PenguBot can be run in either a roblox executor env. which supports wss Websockets.
+Another method is to run it using [Lune](https://github.com/lune-org/lune). 
 
-### (Ignore that the files end with .lua I forgot to change it when editing)
---------------------------------------------------------------------------------------------------------------------------------------------------------
-# How to set it up
-# Executors
-```luau
+The file will automatically detect when you're using lune or a executor env. 
+
+### How to set it up?
+> Executor env: 
+```lua
 local bot = loadstring(game:HttpGet("https://raw.githubusercontent.com/penguin-cmyk/discord-bot-luau/refs/heads/main/discordbot/init.lua"))()
 bot.Config = { self_bot = false }
 bot.new_command({
@@ -19,9 +22,14 @@ bot.new_command({
 bot.login("token")
 ```
 
-# Lune
-```luau
-local bot = require("./discordbot/init.lua") -- it is NEEDED for the folder to be called discordbot else you would need to change the src up a bit (just the init file and that's all)
+ > Lune env:
+```lua
+--[[
+	It is needed for the folder to be called "discordbot".
+	If you don't want it to be called "discordbot" goto init.lua
+	And change the name to something else
+]]
+local bot = require("./discordbot/init.lua") 
 bot.Config = { self_bot = false }
 bot.new_command({
     Name = ".test",
@@ -33,11 +41,8 @@ bot.new_command({
 bot.login("token")
 ```
 
+### Where is the documentation?
+[The documentation can be found here](https://penguins-organization-2.gitbook.io/pengublog/dahood/discord-bot/introduction) 
 
-### Example can found in the examples folder
---------------------------------------------------------------------------------------------------------------------------------------------------------
-Documentation: https://penguins-organization-2.gitbook.io/pengublog/dahood/discord-bot/introduction
---------------------------------------------------------------------------------------------------------------------------------------------------------
-
-What is planned?
-- Functions like reply, delete message, get reactions, add reaction
+### What is planned?
+Currently it is planned to add support for more functions to make it seamless to integrate it into your project and actually use it. 
