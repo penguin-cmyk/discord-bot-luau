@@ -27,7 +27,7 @@ if is_lune then
     local task  = libs.task
     local luau  = libs.luau 
 
-    local json = require("json/json")
+    local json = require("./json/json")
     
     -- Heartbeat information
     local heartbeat_interval = 0
@@ -39,18 +39,19 @@ if is_lune then
         connect = function(ws)
             local ws = net.socket(ws)
             local ws_table = {}
+
             ws_table.OnMessage = {}
             function ws_table.OnMessage:Connect(func)
                 task.spawn(function()
                     while true do 
-                        local message = ws.next()
+                        local message = ws:next()
                         func(message)
                     end 
                 end)
             end 
 
             function ws_table:Send(message)
-                return ws.send(message)
+                return ws:send(message)
             end 
 
             return ws_table 
