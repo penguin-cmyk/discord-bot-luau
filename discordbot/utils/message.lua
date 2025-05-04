@@ -80,13 +80,13 @@ message.reply = function(channel_id, message_id, content)
         }
     })
 
-    return message.send(body, channel_id)
+    return send(body, channel_id)
 end 
 
 
 message.send_message = function(channel_id, message) 
     local message = payload.JsonEncode({ content = message })
-    local result = message.send(message, channel_id)
+    local result = send(message, channel_id)
 
     return result
 end 
@@ -99,14 +99,14 @@ message.send_embed = function(channel_id, embed)
         
     }
     local body = payload.JsonEncode(data)
-    local result = message.send(body, channel_id)
+    local result = send(body, channel_id)
 
     return result 
 end 
 
 message.send_components = function(channel_id, components, handlers)
     local body = payload.JsonEncode({ components = components })
-    local result = message.send(body, channel_id)
+    local result = send(body, channel_id)
 
     message.insert_handles(components, handlers)
 
